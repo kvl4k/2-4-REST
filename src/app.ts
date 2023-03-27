@@ -50,6 +50,8 @@ app.listen(port, host, () =>
 const username = "";
 const password = "";
 let uri = `mongodb+srv://${username}:${password}@todoapp.hoamkqz.mongodb.net/?retryWrites=true&w=majority`;
-mongoose.connect(uri);
+mongoose
+    .connect(uri)
+    .then(() => console.log('Connected to MongoDB');
 
 app.use('/api', router);
