@@ -30,7 +30,7 @@ declare module "express-session" {
 const fileStore = FileStoreConstructor(session);
 app.use(session({
     store: new fileStore({}),
-    secret: 'dvADxeHbjIOpNhsyawei',
+    secret: '',
     resave: true,
     saveUninitialized: true,
     cookie: {
@@ -48,8 +48,8 @@ app.listen(port, host, () =>
 );
 
 //MongoDB 
-const username = "user";
-const password = "ohcvKD32kTEff86C";
+const username = "";
+const password = "";
 let uri = `mongodb+srv://${username}:${password}@todoapp.hoamkqz.mongodb.net/?retryWrites=true&w=majority`;
 mongoose.connect(uri);
 
