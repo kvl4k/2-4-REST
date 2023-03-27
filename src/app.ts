@@ -19,7 +19,6 @@ app.use(cors({
 }));
 app.use(cookieParser());
 
-//винести в types.d.s
 declare module "express-session" {
     interface SessionData {
         user: string;
