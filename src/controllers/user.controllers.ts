@@ -15,10 +15,12 @@ export const userControllers = {
                 return res.status(400).json({ message: "User already exist" })
             }
 
+            const hashedPass = await bcrypt.hash(pass, 10);
+
             await userModel.create(
                 {
                     login: login,
-                    password: pass
+                    password: hashedPass
                 });
 
             return res.status(200).json({ "ok": true });
@@ -36,16 +38,18 @@ export const userControllers = {
             }
 
             const { login, pass } = await req.body;
+
             const user = await userModel.findOne({ login });
 
-            if (!user) {
+            if (user && user.password !== undefined) {
+                const validPassword = bcrypt.compare(pass, user.password);
+
+                if (!validPassword) {
+                    return res.status(400).json({ message: "Incorrect password" });
+                }
+
+            } else {
                 return res.status(400).json({ message: "User not exist" });
-            }
-
-            const validPassword = pass == user.password;
-
-            if (!validPassword) {
-                return res.status(400).json({ message: "Incorrect password" });
             }
 
             req.session.user = req.body.login;
